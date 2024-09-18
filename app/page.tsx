@@ -145,7 +145,7 @@ export default function ManifestMasteryApp() {
           <div className="space-y-6">
             <div className="flex justify-center mb-6">
               <Image 
-                src="/G.png"
+                src="/G.png" 
                 alt="Manifest Mastery Logo"
                 width={96}
                 height={96}
