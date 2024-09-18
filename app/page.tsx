@@ -56,7 +56,6 @@ export default function ManifestMasteryApp() {
   const [affirmations, setAffirmations] = useState<string[]>([])
   const [gratitudeStatements, setGratitudeStatements] = useState<string[]>([])
   const [manifestationScript, setManifestationScript] = useState('')
-  const [logo, setLogo] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleGoalSelection = (goal: string) => {
@@ -88,17 +87,6 @@ export default function ManifestMasteryApp() {
       const reader = new FileReader()
       reader.onloadend = () => {
         setVisionBoard(prev => ({ ...prev, [goal]: reader.result as string }))
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-
-  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setLogo(reader.result as string)
       }
       reader.readAsDataURL(file)
     }
@@ -155,23 +143,14 @@ export default function ManifestMasteryApp() {
       case 0:
         return (
           <div className="space-y-6">
-            <div className="flex justify-center">
-              {logo ? (
-                <Image src={logo} alt="Logo" width={96} height={96} className="object-contain" />
-              ) : (
-                <label htmlFor="logo-upload" className="cursor-pointer">
-                  <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-                    <Upload className="w-8 h-8 text-gray-500" />
-                  </div>
-                  <input
-                    id="logo-upload"
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleLogoUpload}
-                  />
-                </label>
-              )}
+            <div className="flex justify-center mb-6">
+              <Image 
+                src="/G.png"
+                alt="Manifest Mastery Logo"
+                width={96}
+                height={96}
+                className="object-contain"
+              />
             </div>
             <h1 className="text-4xl font-bold text-center text-purple-600" style={{ fontFamily: 'Futura, sans-serif' }}>Manifest Mastery</h1>
             <h2 className="text-2xl font-semibold text-center">Excited to start your goals manifestation?</h2>
