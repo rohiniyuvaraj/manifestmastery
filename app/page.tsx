@@ -1,27 +1,27 @@
 "use client";
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Upload, ExternalLink } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { ExternalLink } from 'lucide-react'
 import Image from 'next/image';
 
 const careerGoals = [
-  "Get promotions/Raise",
-  "Learn new Skill",
-  "Start side Business",
-  "Network with Professionals",
-  "Improve public speaking",
-  "Change Career path",
-  "Take Leadership role",
-  "Improve time Management",
-  "Attend Professional Workshop",
-  "Find a mentor"
+  "Get a promotion",
+  "Switch careers",
+  "Start a business",
+  "Improve work-life balance",
+  "Develop new skills",
+  "Increase income",
+  "Find a new job",
+  "Expand professional network",
+  "Achieve a specific career milestone",
+  "Improve job satisfaction"
 ]
 
 interface GoalDetails {
@@ -41,8 +41,30 @@ interface LimitingBelief {
   newBelief: string;
 }
 
+const sectionInstructions = {
+  careerGoals: "This section helps you map out what you want to achieve in your career and the steps to get there.",
+  limitingBeliefs: "This section helps you build confidence to pursue new opportunities and overcome career obstacles by removing fears/doubts that are holding you back to achieve your goal.",
+  affirmationsGratitude: "This section helps you build a mindset of success by affirming your strengths and acknowledging the progress you've made, which keeps you motivated and focused on career growth.",
+  manifestationScript: "This personalized career script will serve as a powerful tool to guide your intentions and manifest your dream career.",
+  visionBoard: "Use this section to build a visual representation that captures your career goals all in one place for you to practice. You can download and use it as your desktop or phone wallpaper for daily inspiration.",
+  thirtyMinutePlan: "This section helps you to be aligned with your career manifestation goals."
+};
+
+// Add this function at the top level of your file
+function ProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
+  const progress = (currentStep / totalSteps) * 100;
+  return (
+    <div className="w-full bg-gray-200 rounded-full h-2.5">
+      <div
+        className="bg-purple-600 h-2.5 rounded-full"
+        style={{ width: `${progress}%` }}
+      ></div>
+    </div>
+  );
+}
+
 export default function ManifestMasteryApp() {
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(0);
   const [selectedGoals, setSelectedGoals] = useState<string[]>([])
   const [goalDetails, setGoalDetails] = useState<GoalDetails[]>([])
   const [limitingBelief, setLimitingBelief] = useState<LimitingBelief>({
@@ -110,7 +132,7 @@ export default function ManifestMasteryApp() {
   const validateStep = () => {
     setError(null)
     switch (step) {
-      case 1:
+      case 2: // Career Goals
         if (selectedGoals.length === 0) {
           setError("Please select at least one goal.")
           return false
@@ -122,7 +144,7 @@ export default function ManifestMasteryApp() {
           return false
         }
         break
-      case 2:
+      case 3: // Limiting Beliefs section
         if (Object.values(limitingBelief).some(value => !value)) {
           setError("Please fill in all fields about your limiting beliefs.")
           return false
@@ -138,36 +160,77 @@ export default function ManifestMasteryApp() {
     }
   }
 
+  const totalSteps = 9; // Total number of steps including the 30-minute plan
+
   const renderStep = () => {
     switch (step) {
       case 0:
         return (
-          <div className="space-y-6">
-            <div className="flex justify-center mb-6">
-              <Image 
-                src="/G.png"
-                alt="Manifest Mastery Logo"
-                width={96}
-                height={96}
-                className="object-contain"
-              />
-            </div>
-            <h1 className="text-4xl font-bold text-center text-purple-600" style={{ fontFamily: 'Futura, sans-serif' }}>Manifest Mastery</h1>
-            <h2 className="text-2xl font-semibold text-center">Excited to start your goals manifestation?</h2>
-            <p className="text-center text-gray-600" style={{ fontFamily: 'Quicksand, sans-serif' }}>Start Your Manifestation Journey Today!</p>
-            <Button
-              onClick={() => setStep(1)}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
-            >
-              Get Started
-            </Button>
+          <div className="container mx-auto px-4 py-8">
+            <Card className="w-full max-w-4xl mx-auto mb-8">
+              <CardContent className="pt-6 text-center">
+                <Image 
+                  src="/G.png" // Make sure this matches your file name exactly
+                  alt="Manifestor Logo"
+                  width={100}
+                  height={100}
+                  className="mx-auto mb-6"
+                />
+                <h1 className="text-4xl font-bold text-purple-600 mb-4">Manifest Mastery</h1>
+                <h2 className="text-2xl font-semibold mb-2">Excited to start your goals manifestation?</h2>
+                <p className="text-gray-600 mb-6">Start Your Manifestation Journey Today!</p>
+                <Button 
+                  onClick={() => setStep(1)}
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg text-lg"
+                >
+                  Get Started
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         )
       case 1:
         return (
+          <div className="container mx-auto px-4 py-8">
+            <Card className="w-full max-w-4xl mx-auto mb-8">
+              <CardHeader>
+                <div className="flex items-center justify-center mb-4">
+                  <Image 
+                    src="/G.png" // Update this path to your actual logo file
+                    alt="Manifestor Logo"
+                    width={96}
+                    height={96}
+                    className="object-contain"
+                  />
+                </div>
+                <CardTitle className="text-3xl font-bold text-purple-600 text-center">Welcome to ManifestMastery</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-lg text-center mb-6">
+                  Start your journey to transforming every aspect of your life with the ManifestMastery app. We&apos;re here to help you set and achieve your goals, overcome doubts and fears, and rewire your mindset with powerful affirmations and gratitude practices.
+                </p>
+                <p className="text-lg text-center mb-6">
+                  In this phase, we&apos;re focusing on helping you achieve your career goals. Our step-by-step guide will ensure you stay on track and manifest your career aspirations with ease.
+                </p>
+                <p className="text-lg text-center font-semibold mb-6">
+                  Explore the tools and features designed to bring your professional goals to life.
+                </p>
+                <Button 
+                  onClick={() => setStep(2)}
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg text-lg"
+                >
+                  Continue to Career Goals
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )
+      case 2:
+        return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-purple-600" style={{ fontFamily: 'Futura, sans-serif' }}>Career Goals</h2>
-            <p className="text-sm italic text-gray-600" style={{ fontFamily: 'Quicksand, sans-serif' }}>(Select Minimum 1 and Maximum 3)</p>
+            <h2 className="text-2xl font-bold text-purple-600">Career Goals</h2>
+            <p className="text-sm italic text-gray-600">{sectionInstructions.careerGoals}</p>
+            <p className="text-sm italic text-gray-600">(Select Minimum 1 and Maximum 3)</p>
             <Select onValueChange={(value) => handleGoalSelection(value)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a goal" />
@@ -247,11 +310,12 @@ export default function ManifestMasteryApp() {
             </Button>
           </div>
         )
-      case 2:
+      case 3:
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-purple-600">Limiting Belief</h2>
-            <p className="text-sm italic text-gray-600" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+            <p className="text-sm italic text-gray-600">{sectionInstructions.limitingBeliefs}</p>
+            <p className="text-sm italic text-gray-600">
               This section has 3 steps for you to understand your limiting belief and get rid of them to make your manifesting journey faster
             </p>
             <div className="space-y-4">
@@ -320,7 +384,7 @@ export default function ManifestMasteryApp() {
               onClick={() => {
                 if (validateStep()) {
                   generateAffirmationsAndGratitude()
-                  setStep(3)
+                  setStep(4)
                 }
               }}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
@@ -329,10 +393,11 @@ export default function ManifestMasteryApp() {
             </Button>
           </div>
         )
-      case 3:
+      case 4:
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-purple-600">Affirmations & Gratitude</h2>
+            <p className="text-sm italic text-gray-600">{sectionInstructions.affirmationsGratitude}</p>
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">Affirmations</h3>
               {affirmations.map((affirmation, index) => (
@@ -346,14 +411,14 @@ export default function ManifestMasteryApp() {
               ))}
             </div>
             <Button
-              onClick={() => setStep(4)}
+              onClick={() => setStep(5)}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
             >
               Next: Vision Board
             </Button>
           </div>
         )
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-purple-600">Vision Board 2024</h2>
@@ -390,7 +455,7 @@ export default function ManifestMasteryApp() {
             <Button
               onClick={() => {
                 generateManifestationScript()
-                setStep(5)
+                setStep(6)
               }}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
             >
@@ -398,25 +463,27 @@ export default function ManifestMasteryApp() {
             </Button>
           </div>
         )
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-purple-600">Your Career Manifestation Script</h2>
+            <p className="text-sm italic text-gray-600">{sectionInstructions.manifestationScript}</p>
             <div className="p-4 bg-gray-100 rounded-md">
               <p className="text-gray-800 whitespace-pre-line">{manifestationScript}</p>
             </div>
             <Button
-              onClick={() => setStep(6)}
+              onClick={() => setStep(7)}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
             >
               View Overview
             </Button>
           </div>
         )
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-purple-600">Vision Board Overview</h2>
+            <p className="text-sm italic text-gray-600">{sectionInstructions.visionBoard}</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {selectedGoals.map((goal, index) => (
                 <div key={index} className="space-y-4 border p-4 rounded-md">
@@ -448,17 +515,18 @@ export default function ManifestMasteryApp() {
               <p className="text-gray-600 whitespace-pre-line">{manifestationScript}</p>
             </div>
             <Button
-              onClick={() => setStep(7)}
+              onClick={() => setStep(8)}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
             >
               View 30 Minutes Plan
             </Button>
           </div>
         )
-      case 7:
+      case 8:
         return (
           <div className="space-y-6 bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-lg text-white">
             <h2 className="text-2xl font-bold">30 Minutes Plan</h2>
+            <p className="text-sm italic">{sectionInstructions.thirtyMinutePlan}</p>
             <ol className="list-decimal list-inside space-y-4">
               <li className="space-y-2">
                 <span className="font-semibold">Breathing - 10 minutes</span>
@@ -477,30 +545,23 @@ export default function ManifestMasteryApp() {
                     Silence Timer
                   </a>
                 </div>
-                <p className="text-sm">Maintain silence and observe your thoughts here.</p>
               </li>
               <li className="space-y-2">
                 <span className="font-semibold">Read Your 3 Career Goals</span>
-                <p className="text-sm">Read from what has been generated by the app.</p>
               </li>
               <li className="space-y-2">
-                <span className="font-semibold">Ho&apos;oponopono - 2 minutes</span>
-                <p className="text-sm">Based on your identified limiting beliefs/fears, say this prayer to heal your fears.</p>
+                <span className="font-semibold">Hooponopono - 2 minutes</span>
               </li>
               <li className="space-y-2">
                 <span className="font-semibold">Gratitude - 2 minutes</span>
-                <p className="text-sm">Read from what has been generated by the app, giving gratitude for current blessings in your career.</p>
               </li>
               <li className="space-y-2">
                 <span className="font-semibold">Affirmations - 2 minutes</span>
-                <p className="text-sm">Read from what has been generated by the app, focusing on affirmations to rewire your brain.</p>
               </li>
               <li className="space-y-2">
                 <span className="font-semibold">Read Your Life Script and Visualize Your Goals Vision Board - 2 minutes</span>
-                <p className="text-sm">Read from what has been generated by the app, practicing visualization to believe in your accomplishments.</p>
               </li>
             </ol>
-            <p className="font-semibold text-center mt-6">Have a wonderful day ahead.</p>
           </div>
         )
       default:
@@ -514,6 +575,11 @@ export default function ManifestMasteryApp() {
         <CardTitle className="text-3xl font-bold text-purple-600">Manifest Mastery</CardTitle>
         <CardDescription>Manifest your dreams with AI-powered guidance</CardDescription>
       </CardHeader>
+      {step > 0 && step < totalSteps && (
+        <CardContent>
+          <ProgressBar currentStep={step} totalSteps={totalSteps - 1} />
+        </CardContent>
+      )}
       <CardContent>
         {error && (
           <Alert variant="destructive" className="mb-4">
@@ -529,7 +595,7 @@ export default function ManifestMasteryApp() {
             Previous
           </Button>
         )}
-        {step < 7 && step > 0 && (
+        {step < totalSteps - 1 && step > 0 && (
           <Button onClick={nextStep} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
             Next
           </Button>
