@@ -16,8 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-//import { ProgressDemo } from "@/components/ProgressDemo"; // Correctly import ProgressDemo
-//import { progress } from "@/components/progress"; // Ensure this import is correct
+//import VisionBoard from '@/components/VisionBoard'; // Ensure this import is correct
 
 const careerGoals = [
   "Get a promotion",
@@ -186,7 +185,7 @@ export default function ManifestMasteryApp() {
     }
   }
 
-  const totalSteps = 6; // Total number of steps from "Career Goals" to "Vision Board Overview"
+  const totalSteps = 7; // Total number of steps from "Career Goals" to "Vision Board Overview"
 
   const renderStep = () => {
     switch (step) {
@@ -641,7 +640,7 @@ export default function ManifestMasteryApp() {
               }}
             />
           </div>
-          <p>Progress: Step {step - 1} of {totalSteps}</p> {/* Adjusted to reflect step 1 as the first step */}
+          <p>Progress: Step {step} of {totalSteps}</p> {/* Updated to reflect step 1 to step 7 */}
         </CardContent>
       )}
       <CardContent>
