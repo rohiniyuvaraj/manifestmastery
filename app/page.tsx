@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { ExternalLink } from 'lucide-react'
 import Image from 'next/image';
 import {
   Accordion,
@@ -566,57 +565,56 @@ export default function ManifestMasteryApp() {
         )
       case 8:
         return (
-          <div className="space-y-6 bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-lg text-white">
-            <h2 className="text-2xl font-bold">30 Minutes Plan</h2>
-            <p className="text-sm italic">{sectionInstructions.thirtyMinutePlan}</p>
-            <ol className="list-decimal list-inside space-y-4">
-              <li className="space-y-2">
-                <span className="font-semibold">Breathing - 10 minutes</span>
-                <div className="flex items-center space-x-2">
-                  <ExternalLink className="w-4 h-4" />
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-purple-600">30 Minutes Plan</h2>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="breathing">
+                <AccordionTrigger>Breathing - 10 minutes</AccordionTrigger>
+                <AccordionContent>
                   <p>Practice: Utilize the Wim Hof Breathing technique to enhance your focus and calm your mind.</p>
-                </div>
-              </li>
-              <li className="space-y-2">
-                <span className="font-semibold">Silence - 10 minutes</span>
-                <div className="flex items-center space-x-2">
-                  <ExternalLink className="w-4 h-4" />
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="silence">
+                <AccordionTrigger>Silence - 10 minutes</AccordionTrigger>
+                <AccordionContent>
                   <p>Action: Set a silence timer for 10 minutes to allow for deep reflection and mindfulness.</p>
-                </div>
-              </li>
-              <li className="space-y-2">
-                <span className="font-semibold">Ho&apos;oponopono - 2 minutes</span>
-                <p>Mantra:</p>
-                <ul className="list-disc list-inside">
-                  <li>&quot;I&apos;m Sorry.&quot;</li>
-                  <li>&quot;Please forgive me.&quot;</li>
-                  <li>&quot;Thank you.&quot;</li>
-                  <li>&quot;I love you.&quot;</li>
-                </ul>
-              </li>
-              <li className="space-y-2">
-                <span className="font-semibold">Gratitude - 2 minutes</span>
-                <p>{gratitudeStatements.join(', ')}</p> {/* Include gratitude statements */}
-              </li>
-              <li className="space-y-2">
-                <span className="font-semibold">Affirmations - 2 minutes</span>
-                <p>{affirmations.join(', ')}</p> {/* Include affirmations */}
-              </li>
-              <li className="space-y-2">
-                <span className="font-semibold">Read Your Life Script - 2 minutes</span>
-                <p>{manifestationScript}</p> {/* Include manifestation script */}
-              </li>
-              <li className="space-y-2">
-                <span className="font-semibold">Visualize Your Goals - 2 minutes</span>
-                <p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="hooponopono">
+                <AccordionTrigger>Ho&apos;oponopono - 2 minutes</AccordionTrigger>
+                <AccordionContent>
+                  <p>Mantra: &quot;I&apos;m Sorry.&quot;, &quot;Please forgive me.&quot;, &quot;Thank you.&quot;, &quot;I love you.&quot;</p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="gratitude">
+                <AccordionTrigger>Gratitude - 2 minutes</AccordionTrigger>
+                <AccordionContent>
+                  <p>{gratitudeStatements.join(', ')}</p> {/* Include gratitude statements */}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="affirmations">
+                <AccordionTrigger>Affirmations - 2 minutes</AccordionTrigger>
+                <AccordionContent>
+                  <p>{affirmations.join(', ')}</p> {/* Include affirmations */}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="lifeScript">
+                <AccordionTrigger>Read Your Life Script - 2 minutes</AccordionTrigger>
+                <AccordionContent>
+                  <p>{manifestationScript}</p> {/* Include manifestation script */}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="visualizeGoals">
+                <AccordionTrigger>Visualize Your Goals - 2 minutes</AccordionTrigger>
+                <AccordionContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {selectedGoals.map((goal, index) => visionBoard[goal] && (
                       <Image key={index} src={visionBoard[goal]} alt={goal} width={320} height={160} className="w-full h-40 object-cover rounded-md" />
                     ))}
                   </div>
-                </p> {/* Include visual from vision board */}
-              </li>
-            </ol>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         )
       default:
