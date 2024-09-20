@@ -112,8 +112,8 @@ export default function ManifestMasteryApp() {
   const generateAffirmationsAndGratitude = () => {
     const newAffirmations = selectedGoals.map(goal => `I am confident in my ability to ${goal.toLowerCase()}.`)
     const newGratitudeStatements = selectedGoals.map(goal => `I am grateful for the opportunity to ${goal.toLowerCase()}.`)
-    setAffirmations(newAffirmations) // Ensure this function is called to set affirmations
-    setGratitudeStatements(newGratitudeStatements) // Ensure this function is called to set gratitude statements
+    setAffirmations(newAffirmations)
+    setGratitudeStatements(newGratitudeStatements)
   }
 
   const generateManifestationScript = () => {
@@ -123,19 +123,6 @@ export default function ManifestMasteryApp() {
     I am confident in my abilities, and I know that I am on the path to achieving my career goals.`
     setManifestationScript(script)
   }
-
-  const validateInputs = () => {
-    return limitingBelief.fear && limitingBelief.adviceToFriend && limitingBelief.smallStep && limitingBelief.newBelief;
-  };
-
-  const handleNext = () => {
-    if (validateInputs()) {
-      setStep(prev => prev + 1);
-      setError(null);
-    } else {
-      setError("Please fill in all fields about your limiting beliefs.");
-    }
-  };
 
   const validateStep = () => {
     setError(null)
@@ -335,10 +322,7 @@ export default function ManifestMasteryApp() {
               </div>
             ))}
             <Button
-              onClick={() => {
-                generateAffirmationsAndGratitude();
-                nextStep();
-              }}
+              onClick={nextStep}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
               disabled={selectedGoals.length === 0}
             >
@@ -356,78 +340,73 @@ export default function ManifestMasteryApp() {
             </p>
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">Step 1: Identify Your Fears and Doubts</h3>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="fear">
-                  <AccordionTrigger>What fear is holding me back?</AccordionTrigger>
-                  <AccordionContent>
-                    <Input
-                      id="fear"
-                      placeholder="I fear ____________________."
-                      value={limitingBelief.fear}
-                      onChange={(e) => handleLimitingBeliefChange('fear', e.target.value)}
-                    />
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+              <div className="space-y-2">
+                <Label htmlFor="fear">What fear is holding me back, and what thoughts cross my mind when it happens?</Label>
+                <p className="text-sm text-gray-600">Example: &ldquo;I fear not being good enough, and I first noticed it during school presentations.&rdquo;</p>
+                <Input
+                  id="fear"
+                  placeholder="I fear ____________________, and I first noticed it when ____________________."
+                  value={limitingBelief.fear}
+                  onChange={(e) => handleLimitingBeliefChange('fear', e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="triggeringSituation">What triggers this fear, and what thoughts cross my mind when it happens?</Label>
+                <p className="text-sm text-gray-600">Example: &ldquo;When I have to present, I think I&apos;ll fail or be judged.&rdquo;</p>
+                <Textarea
+                  id="triggeringSituation"
+                  placeholder="When I ____________________, I think ____________________."
+                  value={limitingBelief.triggeringSituation}
+                  onChange={(e) => handleLimitingBeliefChange('triggeringSituation', e.target.value)}
+                />
+              </div>
             </div>
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">Step 1.2: Challenge Your Fears and Doubts</h3>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="adviceToFriend">
-                  <AccordionTrigger>What advice would I give to a friend?</AccordionTrigger>
-                  <AccordionContent>
-                    <Textarea
-                      id="adviceToFriend"
-                      placeholder="If my friend felt this way, I would say ____________________."
-                      value={limitingBelief.adviceToFriend}
-                      onChange={(e) => handleLimitingBeliefChange('adviceToFriend', e.target.value)}
-                    />
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+              <div className="space-y-2">
+                <Label htmlFor="adviceToFriend">What advice would I give to a friend if they had this same fear?</Label>
+                <p className="text-sm text-gray-600">Example: &ldquo;You&apos;ve done this before, and you can do it again.&rdquo;</p>
+                <Textarea
+                  id="adviceToFriend"
+                  placeholder="If my friend felt this way, I would say ____________________."
+                  value={limitingBelief.adviceToFriend}
+                  onChange={(e) => handleLimitingBeliefChange('adviceToFriend', e.target.value)}
+                />
+              </div>
             </div>
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">Step 2: Take Action to Remove Fear</h3>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="smallStep">
-                  <AccordionTrigger>What is one small step I can take today to confront this fear?</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      <Label htmlFor="smallStep">Small Step</Label>
-                      <p className="text-sm text-gray-600">Example: &ldquo;I&apos;ll practice in front of a friend.&rdquo;</p>
-                      <Input
-                        id="smallStep"
-                        placeholder="Today, I will ____________________ to confront my fear."
-                        value={limitingBelief.smallStep}
-                        onChange={(e) => handleLimitingBeliefChange('smallStep', e.target.value)}
-                      />
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+              <div className="space-y-2">
+                <Label htmlFor="smallStep">What is one small step I can take today to confront this fear?</Label>
+                <p className="text-sm text-gray-600">Example: &ldquo;I&apos;ll practice in front of a friend.&rdquo;</p>
+                <Input
+                  id="smallStep"
+                  placeholder="Today, I will ____________________ to confront my fear."
+                  value={limitingBelief.smallStep}
+                  onChange={(e) => handleLimitingBeliefChange('smallStep', e.target.value)}
+                />
+              </div>
             </div>
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">Step 3: Practice Self-Love</h3>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="newBelief">
-                  <AccordionTrigger>What positive affirmation can I use to replace this fear?</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      <Label htmlFor="newBelief">New Belief</Label>
-                      <p className="text-sm text-gray-600">Example: &ldquo;I am capable and confident.&rdquo;</p>
-                      <Input
-                        id="newBelief"
-                        placeholder="I will replace my fear with the belief that ____________________."
-                        value={limitingBelief.newBelief}
-                        onChange={(e) => handleLimitingBeliefChange('newBelief', e.target.value)}
-                      />
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+              <div className="space-y-2">
+                <Label htmlFor="newBelief">What positive affirmation can I use to replace this fear?</Label>
+                <p className="text-sm text-gray-600">Example: &ldquo;I am capable and confident.&rdquo;</p>
+                <Input
+                  id="newBelief"
+                  placeholder="I will replace my fear with the belief that ____________________."
+                  value={limitingBelief.newBelief}
+                  onChange={(e) => handleLimitingBeliefChange('newBelief', e.target.value)}
+                />
+              </div>
             </div>
             <Button
-              onClick={handleNext}
+              onClick={() => {
+                if (validateStep()) {
+                  generateAffirmationsAndGratitude()
+                  nextStep()
+                }
+              }}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
             >
               Next: Affirm & Be Grateful
@@ -575,47 +554,34 @@ export default function ManifestMasteryApp() {
                 <span className="font-semibold">Breathing - 10 minutes</span>
                 <div className="flex items-center space-x-2">
                   <ExternalLink className="w-4 h-4" />
-                  <p>Practice: Utilize the Wim Hof Breathing technique to enhance your focus and calm your mind.</p>
+                  <a href="https://drive.google.com/file/d/1lQDV_cBdo6HP92o0eco3iSxXPRxs0LXt/view?usp=drive_web" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">
+                    Wim Hoff Breathing
+                  </a>
                 </div>
               </li>
               <li className="space-y-2">
                 <span className="font-semibold">Silence - 10 minutes</span>
                 <div className="flex items-center space-x-2">
                   <ExternalLink className="w-4 h-4" />
-                  <p>Action: Set a silence timer for 10 minutes to allow for deep reflection and mindfulness.</p>
+                  <a href="https://youtu.be/IQ3SaSf--8Q?si=DUVfFFVBt2R8o-Ux" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">
+                    Silence Timer
+                  </a>
                 </div>
               </li>
               <li className="space-y-2">
-                <span className="font-semibold">Ho&apos;oponopono - 2 minutes</span>
-                <p>Mantra:</p>
-                <ul className="list-disc list-inside">
-                  <li>&quot;I&apos;m Sorry.&quot;</li>
-                  <li>&quot;Please forgive me.&quot;</li>
-                  <li>&quot;Thank you.&quot;</li>
-                  <li>&quot;I love you.&quot;</li>
-                </ul>
+                <span className="font-semibold">Read Your 3 Career Goals</span>
+              </li>
+              <li className="space-y-2">
+                <span className="font-semibold">Hooponopono - 2 minutes</span>
               </li>
               <li className="space-y-2">
                 <span className="font-semibold">Gratitude - 2 minutes</span>
-                <p>{gratitudeStatements.join(', ')}</p> {/* Include gratitude statements */}
               </li>
               <li className="space-y-2">
                 <span className="font-semibold">Affirmations - 2 minutes</span>
-                <p>{affirmations.join(', ')}</p> {/* Include affirmations */}
               </li>
               <li className="space-y-2">
-                <span className="font-semibold">Read Your Life Script - 2 minutes</span>
-                <p>{manifestationScript}</p> {/* Include manifestation script */}
-              </li>
-              <li className="space-y-2">
-                <span className="font-semibold">Visualize Your Goals - 2 minutes</span>
-                <p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {selectedGoals.map((goal, index) => visionBoard[goal] && (
-                      <Image key={index} src={visionBoard[goal]} alt={goal} width={320} height={160} className="w-full h-40 object-cover rounded-md" />
-                    ))}
-                  </div>
-                </p> {/* Include visual from vision board */}
+                <span className="font-semibold">Read Your Life Script and Visualize Your Goals Vision Board - 2 minutes</span>
               </li>
             </ol>
           </div>
