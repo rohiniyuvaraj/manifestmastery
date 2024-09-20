@@ -641,7 +641,7 @@ export default function ManifestMasteryApp() {
               }}
             />
           </div>
-          <p>Progress: Step {step - 1} of {totalSteps - 1}</p> {/* Adjusted to reflect step 1 as the first step */}
+          <p>Progress: Step {step - 1} of {totalSteps}</p> {/* Adjusted to reflect step 1 as the first step */}
         </CardContent>
       )}
       <CardContent>
