@@ -186,7 +186,7 @@ export default function ManifestMasteryApp() {
     }
   }
 
-  const totalSteps = 9; // Total number of steps including the 30-minute plan
+  const totalSteps = 6; // Total number of steps from "Career Goals" to "Vision Board Overview"
 
   const renderStep = () => {
     switch (step) {
@@ -631,10 +631,17 @@ export default function ManifestMasteryApp() {
         <CardTitle className="text-3xl font-bold text-purple-600">Manifest Mastery</CardTitle>
         <CardDescription>Manifest your dreams with AI-powered guidance</CardDescription>
       </CardHeader>
-      {step > 0 && step < totalSteps && (
+      {step >= 2 && step < totalSteps && ( // Show progress bar only for steps 3 to 6
         <CardContent>
-          <progress className="w-full h-2 bg-gradient-to-r from-purple-500 to-pink-500" /> {/* Updated styles for gradient and dimensions */}
-          <p>Progress: Step {step + 1} of {totalSteps - 1}</p> {/* Adjusted to reflect step 1 as the first step */}
+          <div className="relative w-full h-2 bg-gray-200 rounded-full">
+            <div
+              className="h-full rounded-full bg-pink-500" // Solid pink color
+              style={{
+                width: `${((step - 1) / (totalSteps - 1)) * 100}%`, // Calculate fill percentage
+              }}
+            />
+          </div>
+          <p>Progress: Step {step - 1} of {totalSteps}</p> {/* Adjusted to reflect step 1 as the first step */}
         </CardContent>
       )}
       <CardContent>
