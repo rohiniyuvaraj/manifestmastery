@@ -16,6 +16,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 //import VisionBoard from '@/components/VisionBoard'; // Ensure this import is correct
+import { PlayCircle } from "lucide-react"
 
 const careerGoals = [
   "Get a promotion",
@@ -72,6 +73,8 @@ export default function ManifestMasteryApp() {
   const [gratitudeStatements, setGratitudeStatements] = useState<string[]>([])
   const [manifestationScript, setManifestationScript] = useState('')
   const [error, setError] = useState<string | null>(null)
+  
+  const [visionBoardImage, setVisionBoardImage] = useState<string | null>(null); // Add this state to store the uploaded image
 
   const handleGoalSelection = (goal: string) => {
     setSelectedGoals(prev => {
@@ -97,13 +100,14 @@ export default function ManifestMasteryApp() {
   }
 
   const handleVisionBoardUpload = (goal: string, event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader()
+      const reader = new FileReader();
       reader.onloadend = () => {
-        setVisionBoard(prev => ({ ...prev, [goal]: reader.result as string }))
-      }
-      reader.readAsDataURL(file)
+        setVisionBoard(prev => ({ ...prev, [goal]: reader.result as string }));
+        setVisionBoardImage(reader.result as string); // Store the uploaded image in the state
+      };
+      reader.readAsDataURL(file);
     }
   }
 
@@ -138,7 +142,7 @@ export default function ManifestMasteryApp() {
   const validateStep = () => {
     setError(null)
     switch (step) {
-      case 2: // Career Goals
+      case 1: // Career Goals
         if (selectedGoals.length === 0) {
           setError("Please select at least one goal.")
           return false
@@ -231,14 +235,12 @@ export default function ManifestMasteryApp() {
               </CardHeader>
               <CardContent>
                 <p className="text-lg text-center mb-6">
-                  Start your journey to transforming every aspect of your life with the ManifestMastery app. We&apos;re here to help you set and achieve your goals, overcome doubts and fears, and rewire your mindset with powerful affirmations and gratitude practices.
+                  Transform your life with the ManifestMastery app! Achieve your career goals, overcome doubts, and rewire your mindset with powerful affirmations and gratitude practices.
                 </p>
                 <p className="text-lg text-center mb-6">
-                  In this phase, we&apos;re focusing on helping you achieve your career goals. Our step-by-step guide will ensure you stay on track and manifest your career aspirations with ease.
+                  Our step-by-step guide in phase 1 keeps you on track to manifest your professional aspirations effortlessly. Download now and start your journey to success!
                 </p>
-                <p className="text-lg text-center font-semibold mb-6">
-                  Explore the tools and features designed to bring your professional goals to life.
-                </p>
+                
                 <Button 
                   onClick={() => setStep(2)}
                   className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg text-lg"
@@ -474,20 +476,8 @@ export default function ManifestMasteryApp() {
                     onChange={(e) => handleVisionBoardUpload(goal, e)}
                   />
                   {visionBoard[goal] && (
-                    <Image src={visionBoard[goal]} alt={goal} width={320} height={160} className="w-full h-40 object-cover rounded-md" />
+                    <Image src={visionBoard[goal]} alt={goal} width={1080} height={1080} className="w-full h-full object-cover rounded-md" />
                   )}
-                </div>
-                <div className="space-y-2">
-                  <Label>Goal Statement:</Label>
-                  <p className="text-gray-600">{goalDetails[index]?.whatToAchieve}</p>
-                </div>
-                <div className="space-y-2">
-                  <Label>Gratitude Statement:</Label>
-                  <p className="text-gray-600">{gratitudeStatements[index]}</p>
-                </div>
-                <div className="space-y-2">
-                  <Label>Affirmation Statement:</Label>
-                  <p className="text-gray-600">{affirmations[index]}</p>
                 </div>
               </div>
             ))}
@@ -522,99 +512,106 @@ export default function ManifestMasteryApp() {
         )
       case 7:
         return (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-purple-600">Vision Board Overview</h2>
-            <p className="text-sm italic text-gray-600">{sectionInstructions.visionBoard}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {selectedGoals.map((goal, index) => (
-                <div key={index} className="space-y-4 border p-4 rounded-md">
-                  <h3 className="text-xl font-semibold">{goal}</h3>
-                  {visionBoard[goal] && (
-                    <Image src={visionBoard[goal]} alt={goal} width={320} height={160} className="w-full h-40 object-cover rounded-md" />
-                  )}
-                  <div>
-                    <h4 className="font-medium">Career Goal Statement</h4>
-                    <p className="text-gray-600">{goalDetails[index]?.whatToAchieve}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium">Limiting Belief to be Addressed</h4>
-                    <p className="text-gray-600">{limitingBelief.fear}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium">Affirmation Statement</h4>
-                    <p className="text-gray-600">{affirmations[index]}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium">Gratitude Statement</h4>
-                    <p className="text-gray-600">{gratitudeStatements[index]}</p>
-                  </div>
+          <div className="min-h-screen p-4 bg-white" style={{
+            border: "20px solid",
+            borderImage: "linear-gradient(to right, pink, purple) 1"
+          }}>
+            <Card className="mx-auto max-w-4xl bg-white/10 backdrop-blur-md">
+              <CardHeader>
+                <CardTitle className="text-center text-3xl font-bold text-pink">YOUR 30 MINUTES PLAN</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Card className="bg-light pink/20 border border-gradient-to-r from-pink-500 to-purple-500">
+                    <CardHeader>
+                      <CardTitle className="flex items-center justify-between">
+                        <span>Breathing - 10 Minutes</span>
+                        <Button size="sm" variant="ghost">
+                          <PlayCircle className="h-6 w-6" />
+                        </Button>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <Input className="bg-white/50" placeholder="YouTube Link: Breathing" />
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-white/20 border border-gradient-to-r from-pink-500 to-purple-500">
+                    <CardHeader>
+                      <CardTitle>Silence - 10 Minutes</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <Input className="bg-white/50" placeholder="YouTube Link: Silence" />
+                    </CardContent>
+                  </Card>
                 </div>
-              ))}
-            </div>
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold">Career Goal Manifestation Script</h3>
-              <p className="text-gray-600 whitespace-pre-line">{manifestationScript}</p>
-            </div>
-            <Button
-              onClick={nextStep}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
-            >
-              View 30 Minutes Plan
-            </Button>
-          </div>
-        )
-      case 8:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-purple-600">30 Minutes Plan</h2>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="breathing">
-                <AccordionTrigger>Breathing - 10 minutes</AccordionTrigger>
-                <AccordionContent>
-                  <p>Practice: Utilize the Wim Hof Breathing technique to enhance your focus and calm your mind.</p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="silence">
-                <AccordionTrigger>Silence - 10 minutes</AccordionTrigger>
-                <AccordionContent>
-                  <p>Action: Set a silence timer for 10 minutes to allow for deep reflection and mindfulness.</p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="hooponopono">
-                <AccordionTrigger>Ho&apos;oponopono - 2 minutes</AccordionTrigger>
-                <AccordionContent>
-                  <p>Mantra: &quot;I&apos;m Sorry.&quot;, &quot;Please forgive me.&quot;, &quot;Thank you.&quot;, &quot;I love you.&quot;</p>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="gratitude">
-                <AccordionTrigger>Gratitude - 2 minutes</AccordionTrigger>
-                <AccordionContent>
-                  <p>{gratitudeStatements.join(', ')}</p> {/* Include gratitude statements */}
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="affirmations">
-                <AccordionTrigger>Affirmations - 2 minutes</AccordionTrigger>
-                <AccordionContent>
-                  <p>{affirmations.join(', ')}</p> {/* Include affirmations */}
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="lifeScript">
-                <AccordionTrigger>Read Your Life Script - 2 minutes</AccordionTrigger>
-                <AccordionContent>
-                  <p>{manifestationScript}</p> {/* Include manifestation script */}
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="visualizeGoals">
-                <AccordionTrigger>Visualize Your Goals - 2 minutes</AccordionTrigger>
-                <AccordionContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {selectedGoals.map((goal, index) => visionBoard[goal] && (
-                      <Image key={index} src={visionBoard[goal]} alt={goal} width={320} height={160} className="w-full h-40 object-cover rounded-md" />
-                    ))}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                <Card className="bg-white/20 border border-gradient-to-r from-pink-500 to-purple-500">
+                  <CardHeader>
+                    <CardTitle className="text-center">VISION BOARD 2024</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-4 md:grid-cols-3">
+                      <div className="md:col-span-2">
+                        <Card className="h-full bg-white/30 border border-gradient-to-r from-pink-500 to-purple-500">
+                          <CardHeader>
+                            <CardTitle>VISION BOARD</CardTitle>
+                          </CardHeader>
+                          <CardContent className="flex h-full items-center justify-center">
+                            {visionBoardImage ? ( // Display the uploaded image
+                              <Image src={visionBoardImage} alt="Vision Board" width={320} height={160} className="max-h-full w-full rounded-lg object-cover" />
+                            ) : (
+                              <div className="flex h-full w-full items-center justify-center rounded-lg border-2 border-dashed">
+                                <p>No image uploaded yet.</p>
+                              </div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </div>
+                      <div className="space-y-4">
+                        <Card className="bg-white/30 border border-gradient-to-r from-pink-500 to-purple-500">
+                          <CardHeader>
+                            <CardTitle>GOALS</CardTitle>
+                            <p className="text-gray-600">{goalDetails[0]?.whatToAchieve}</p>
+                          </CardHeader>
+                        </Card>
+                        <Card className="bg-white/30 border border-gradient-to-r from-pink-500 to-purple-500">
+                          <CardHeader>
+                            <CardTitle className="text-sm">LIMITING BELIEF + HO&apos;OPONOPONO</CardTitle>
+                            <p className="text-gray-600">{limitingBelief.fear}</p>
+                          </CardHeader>
+                          <CardContent>
+                            <Textarea
+                              className="bg-white/50"
+                              value="I am Sorry. Please Forgive. Thank you. I Love you."
+                              readOnly
+                            />
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      <Card className="bg-white/30 border border-gradient-to-r from-pink-500 to-purple-500">
+                        <CardHeader>
+                          <CardTitle>GRATITUDE</CardTitle>
+                          <p className="text-gray-600">{gratitudeStatements[0]}</p>
+                        </CardHeader>
+                      </Card>
+                      <Card className="bg-white/30 border border-gradient-to-r from-pink-500 to-purple-500">
+                        <CardHeader>
+                          <CardTitle>AFFIRMATION</CardTitle>
+                          <p className="text-gray-600">{affirmations[0]}</p>
+                        </CardHeader>
+                      </Card>
+                    </div>
+                    <Card className="mt-4 bg-white/30 border border-gradient-to-r from-pink-500 to-purple-500">
+                      <CardHeader>
+                        <CardTitle>READ YOUR LIFE SCRIPT</CardTitle>
+                        <p className="text-gray-800 whitespace-pre-line">{manifestationScript}</p>
+                      </CardHeader>
+                    </Card>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
           </div>
         )
       default:
