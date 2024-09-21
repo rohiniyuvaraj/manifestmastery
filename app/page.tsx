@@ -254,7 +254,7 @@ export default function ManifestMasteryApp() {
       case 2:
         console.log("Rendering Career Goals section", selectedGoals);
         return (
-          <div className="space-y-6">
+          <div className="space-y-6 px-4">
             <h2 className="text-2xl font-bold text-purple-600">Career Goals</h2>
             <p className="text-sm italic text-gray-600">{sectionInstructions.careerGoals}</p>
             <div className="mb-6">
@@ -348,7 +348,7 @@ export default function ManifestMasteryApp() {
         )
       case 3:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6 px-4">
             <h2 className="text-2xl font-bold text-purple-600">Limiting Belief</h2>
             <p className="text-sm italic text-gray-600">{sectionInstructions.limitingBeliefs}</p>
             <p className="text-sm italic text-gray-600">
@@ -436,7 +436,7 @@ export default function ManifestMasteryApp() {
         )
       case 4:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6 px-4">
             <h2 className="text-2xl font-bold text-purple-600">Affirmations & Gratitude</h2>
             <p className="text-sm italic text-gray-600">{sectionInstructions.affirmationsGratitude}</p>
             <div className="space-y-4">
@@ -461,7 +461,7 @@ export default function ManifestMasteryApp() {
         )
       case 5:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6 px-4">
             <h2 className="text-2xl font-bold text-purple-600">Vision Board 2024</h2>
             <h3 className="text-xl font-semibold">Career Goals</h3>
             {selectedGoals.map((goal, index) => (
@@ -496,7 +496,7 @@ export default function ManifestMasteryApp() {
         )
       case 6:
         return (
-          <div className="space-y-6">
+          <div className="space-y-6 px-4">
             <h2 className="text-2xl font-bold text-purple-600">Your Career Manifestation Script</h2>
             <p className="text-sm italic text-gray-600">{sectionInstructions.manifestationScript}</p>
             <div className="p-4 bg-gray-100 rounded-md">
@@ -620,22 +620,22 @@ export default function ManifestMasteryApp() {
   }
 
   return (
-    <Card className="w-[800px] mx-auto">
+    <Card className="w-full max-w-4xl mx-auto p-4"> {/* Adjusted for responsiveness */}
       <CardHeader>
-        <CardTitle className="text-3xl font-bold text-purple-600">Manifest Mastery</CardTitle>
-        <CardDescription>Manifest your dreams with AI-powered guidance</CardDescription>
+        <CardTitle className="text-3xl font-bold text-purple-600 text-center">Manifest Mastery</CardTitle>
+        <CardDescription className="text-center">Manifest your dreams with AI-powered guidance</CardDescription>
       </CardHeader>
       {step >= 2 && step < totalSteps && ( // Show progress bar only for steps 3 to 6
         <CardContent>
           <div className="relative w-full h-2 bg-gray-200 rounded-full">
             <div
-              className="h-full rounded-full bg-pink-500" // Solid pink color
+              className="h-full rounded-full bg-pink-500"
               style={{
-                width: `${((step - 1) / (totalSteps - 1)) * 100}%`, // Calculate fill percentage
+                width: `${((step - 1) / (totalSteps - 1)) * 100}%`,
               }}
             />
           </div>
-          <p>Progress: Step {step} of {totalSteps}</p> {/* Updated to reflect step 1 to step 7 */}
+          <p className="text-center">Progress: Step {step} of {totalSteps}</p> {/* Centered text */}
         </CardContent>
       )}
       <CardContent>
