@@ -526,7 +526,11 @@ export default function ManifestMasteryApp() {
                     <CardHeader>
                       <CardTitle className="flex items-center justify-between">
                         <span>Breathing - 10 Minutes</span>
-                        <Button size="sm" variant="ghost">
+                        <Button 
+                          size="sm" 
+                          variant="ghost" 
+                          onClick={() => window.open('https://youtu.be/tybOi4hjZFQ?si=1NgQnHQz_9ZAjuqW', '_blank')}
+                        >
                           <PlayCircle className="h-6 w-6" />
                         </Button>
                       </CardTitle>
@@ -537,7 +541,16 @@ export default function ManifestMasteryApp() {
                   </Card>
                   <Card className="bg-white/20 border border-gradient-to-r from-pink-500 to-purple-500">
                     <CardHeader>
-                      <CardTitle>Silence - 10 Minutes</CardTitle>
+                      <CardTitle className="flex items-center justify-between">
+                        <span>Silence - 10 Minutes</span>
+                        <Button 
+                          size="sm" 
+                          variant="ghost" 
+                          onClick={() => window.open('https://youtu.be/IQ3SaSf--8Q?si=_JQTU3OgvhScNhUc', '_blank')}
+                        >
+                          <PlayCircle className="h-6 w-6" />
+                        </Button>
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <Input className="bg-white/50" placeholder="YouTube Link: Silence" />
@@ -572,6 +585,18 @@ export default function ManifestMasteryApp() {
                             <CardTitle>GOALS</CardTitle>
                             <p className="text-gray-600">{goalDetails[0]?.whatToAchieve}</p>
                           </CardHeader>
+                          <CardContent>
+                            <div className="flex items-center justify-between mt-4">
+                              <span>Visualisation</span>
+                              <Button 
+                                size="sm" 
+                                variant="ghost" 
+                                onClick={() => window.open('https://www.youtube.com/watch?v=BoarT5bgQXA', '_blank')}
+                              >
+                                <PlayCircle className="h-6 w-6" />
+                              </Button>
+                            </div>
+                          </CardContent>
                         </Card>
                         <Card className="bg-white/30 border border-gradient-to-r from-pink-500 to-purple-500">
                           <CardHeader>
@@ -579,11 +604,16 @@ export default function ManifestMasteryApp() {
                             <p className="text-gray-600">{limitingBelief.fear}</p>
                           </CardHeader>
                           <CardContent>
-                            <Textarea
-                              className="bg-white/50"
-                              value="I am Sorry. Please Forgive. Thank you. I Love you."
-                              readOnly
-                            />
+                            <div className="flex items-center justify-between mt-4">
+                              <span>Watch Video</span>
+                              <Button 
+                                size="sm" 
+                                variant="ghost" 
+                                onClick={() => window.open('https://youtu.be/bUge8I2adfs?si=NYOGq1dUo_cFhWvO', '_blank')}
+                              >
+                                <PlayCircle className="h-6 w-6" />
+                              </Button>
+                            </div>
                           </CardContent>
                         </Card>
                       </div>
