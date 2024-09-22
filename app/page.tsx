@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/accordion"
 //import VisionBoard from '@/components/VisionBoard'; // Ensure this import is correct
 import { PlayCircle } from "lucide-react"
+import jsPDF from 'jspdf'; // Import jsPDF
 
 const careerGoals = [
   "Get a promotion",
@@ -511,6 +512,68 @@ export default function ManifestMasteryApp() {
           </div>
         )
       case 7:
+        const downloadPDF = () => {
+          const doc = new jsPDF();
+          
+          // Title
+          doc.setFontSize(22);
+          doc.setFont("bold"); // Set font to bold
+		  		  
+          doc.text("YOUR 30 MINUTES PLAN", 105, 20, { align: "center" });
+          doc.setFont("normal"); // Reset to normal font
+          doc.setFontSize(12);
+          doc.text("Breathing - 10 Minutes", 10, 40);
+          doc.text("YouTube Link: https://youtu.be/tybOi4hjZFQ?si=1NgQnHQz_9ZAjuqW", 10, 50);
+          doc.text("Silence - 10 Minutes", 10, 70);
+          doc.text("YouTube Link: https://youtu.be/IQ3SaSf--8Q?si=_JQTU3OgvhScNhUc", 10, 80);
+          
+          // Add spacing
+          doc.text("", 10, 90); // Two lines of spacing
+          doc.text("", 10, 100); // Two lines of spacing
+
+          // Vision Board Section
+          doc.setFontSize(22);
+          doc.setFont("bold"); // Set font to bold
+		 
+          doc.text("VISION BOARD 2024", 105, 120, { align: "center" });
+          doc.setFont("normal"); // Reset to normal font
+          doc.setFontSize(12);
+          doc.text("Goals: " + goalDetails[0]?.whatToAchieve, 10, 140);
+          doc.text("YouTube Link: https://www.youtube.com/watch?v=BoarT5bgQXA", 10, 160); // Added YouTube link after Goals
+          doc.text("Limiting Belief: " + limitingBelief.fear, 10, 180);
+          doc.text("YouTube Link: https://youtu.be/bUge8I2adfs?si=NYOGq1dUo_cFhW", 10, 200); // Added YouTube link after Limiting Belief
+          doc.text("Gratitude: " + gratitudeStatements[0], 10, 220);
+          doc.text("Affirmation: " + affirmations[0], 10, 240);
+          
+          // Add spacing
+          doc.text("", 10, 260); // Two lines of spacing
+          doc.text("", 10, 270); // Two lines of spacing
+
+		 // Add a new page for the image
+          doc.addPage();
+
+          // Read Your Life Script Section
+          doc.setFontSize(18);
+          doc.setFont("bold"); // Set font to bold
+          doc.text("READ YOUR LIFE SCRIPT", 10, 20);
+          doc.setFont("normal"); // Reset to normal font
+          doc.setFontSize(12);
+          doc.text(manifestationScript, 10, 40);
+          
+         
+          doc.setFontSize(18);
+          doc.setFont("bold"); // Set font to bold
+          doc.text("VISION BOARD", 10, 90);
+          // Add the image to the second page
+          if (visionBoardImage) {
+            const imgData = visionBoardImage; // Use the uploaded image
+            doc.addImage(imgData, 'JPEG', 10, 100, 180, 160); // Adjust dimensions as needed
+          }
+
+          // Save the PDF
+          doc.save("30_minutes_plan.pdf");
+        };
+
         return (
           <div className="min-h-screen p-4 bg-white" style={{
             border: "20px solid",
@@ -642,6 +705,12 @@ export default function ManifestMasteryApp() {
                 </Card>
               </CardContent>
             </Card>
+            <Button
+              onClick={downloadPDF} // Add the download function to the button
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
+            >
+              Download Plan
+            </Button>
           </div>
         )
       default:
@@ -655,7 +724,7 @@ export default function ManifestMasteryApp() {
         <CardTitle className="text-3xl font-bold text-purple-600 text-center">Manifest Mastery</CardTitle>
         <CardDescription className="text-center">Manifest your dreams with AI-powered guidance</CardDescription>
       </CardHeader>
-      {step >= 2 && step < totalSteps && ( // Show progress bar only for steps 3 to 6
+      {step >= 2 && step < totalSteps  && ( // Show progress bar only for steps 3 to 6
         <CardContent>
           <div className="relative w-full h-2 bg-gray-200 rounded-full">
             <div
@@ -665,7 +734,7 @@ export default function ManifestMasteryApp() {
               }}
             />
           </div>
-          <p className="text-center">Progress: Step {step} of {totalSteps}</p> {/* Centered text */}
+          <p className="text-center">Progress: Step {step-1} of {totalSteps-2}</p> {/* Centered text */}
         </CardContent>
       )}
       <CardContent>
@@ -679,7 +748,7 @@ export default function ManifestMasteryApp() {
       </CardContent>
       <CardFooter className="flex justify-between">
         {step > 0 && (
-          <Button onClick={() => setStep(step - 1)} variant="outline">
+          <Button onClick={() => setStep(step - 2)} variant="outline">
             Previous
           </Button>
         )}
