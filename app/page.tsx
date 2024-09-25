@@ -246,7 +246,7 @@ export default function ManifestMasteryApp() {
                   onClick={() => setStep(2)}
                   className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg text-lg"
                 >
-                  Continue to Career Goals
+                  Next:Continue to Career Goals
                 </Button>
               </CardContent>
             </Card>
@@ -431,7 +431,7 @@ export default function ManifestMasteryApp() {
               onClick={handleNext}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
             >
-              Next: Affirm & Be Grateful
+              Next: Affirmation & Be Grateful
             </Button>
           </div>
         )
@@ -491,7 +491,7 @@ export default function ManifestMasteryApp() {
               }}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
             >
-              Generate Manifestation Script
+              Next:Generate Manifestation Script
             </Button>
           </div>
         )
@@ -507,7 +507,7 @@ export default function ManifestMasteryApp() {
               onClick={nextStep}
               className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white"
             >
-              View Overview
+              Next:View Overview
             </Button>
           </div>
         )
@@ -519,7 +519,7 @@ export default function ManifestMasteryApp() {
           doc.setFontSize(22);
           doc.setFont("bold"); // Set font to bold
 		  		  
-          doc.text("YOUR 30 MINUTES PLAN", 105, 20, { align: "center" });
+          doc.text("YOUR 30 MINUTES PLAN", 105, 20);
           doc.setFont("normal"); // Reset to normal font
           doc.setFontSize(12);
           doc.text("Breathing - 10 Minutes", 10, 40);
@@ -730,11 +730,11 @@ export default function ManifestMasteryApp() {
             <div
               className="h-full rounded-full bg-pink-500"
               style={{
-                width: `${((step - 1) / (totalSteps - 1)) * 100}%`,
+                width: `${((step) / (totalSteps - 1)) * 100}%`,
               }}
             />
           </div>
-          <p className="text-center">Progress: Step {step-1} of {totalSteps-2}</p> {/* Centered text */}
+          <p className="text-center">Progress: Step {step-1} of {totalSteps - 2}</p> {/* Centered text */}
         </CardContent>
       )}
       <CardContent>
@@ -748,15 +748,11 @@ export default function ManifestMasteryApp() {
       </CardContent>
       <CardFooter className="flex justify-between">
         {step > 0 && (
-          <Button onClick={() => setStep(step - 2)} variant="outline">
+          <Button onClick={() => setStep(step - 1)} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 rounded-lg text-sm" variant="outline">
             Previous
           </Button>
         )}
-        {step < totalSteps - 1 && step > 0 && (
-          <Button onClick={nextStep} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-            Next
-          </Button>
-        )}
+        {/* Removed Next button */}
       </CardFooter>
     </Card>
   )
